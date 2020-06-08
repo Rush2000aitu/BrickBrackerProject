@@ -7,8 +7,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.Timer;
+import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
@@ -27,8 +33,16 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private int ballYdir = -2;
 
     private MapGenerator map;
+    
+    private static final String url = "jdbc:mysql://localhost:3306/javaproject?useSSL=false";
+    private static final String user = "root";
+    private static final String password = "13579abc";
+    private static Connection con;
+    private static Statement stmt;
 
-    public Gameplay(){
+    
+    public Gameplay() {
+		
         map = new MapGenerator(3, 7);
         addKeyListener(this);
         setFocusable(true);
@@ -65,6 +79,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.fillOval(ballposX,ballposY,20,20);
 
         if(totalBricks <=0){
+        	
+        	
             play = false;
             ballXdir = 0;
             ballYdir = 0;
@@ -74,9 +90,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
             g.setFont(new Font("serif",Font.BOLD,20));
             g.drawString("Press Enter to Restart",230,350);
+           
         }
 
         if (ballposY > 570) {
+        	
             play = false;
             ballXdir = 0;
             ballYdir = 0;
@@ -88,7 +106,23 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             g.drawString("Press Enter to Restart",230,350);
 
         }
-
+        if(!play) {
+        	try{  
+    			String query1 = "UPDATE players SET score = "+score+" ORDER BY id DESC LIMIT 1";
+    			
+    			con = DriverManager.getConnection(url, user, password);
+    			stmt = con.createStatement();
+    			stmt.executeUpdate(query1);
+    			if(con!=null) {
+    				  con.close();
+    				}
+    		}catch(Exception e){
+    				System.out.println(e);
+    				e.printStackTrace();
+    				return;
+    			}
+        }
+        
         g.dispose();
     }
 
