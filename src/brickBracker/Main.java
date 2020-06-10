@@ -21,7 +21,7 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
     	
-    	System.out.print("Enter your Nickname: ");
+    	System.out.print("Enter your Nickname: ououo");
     	Scanner nn = new Scanner(System.in);
 		String name = nn.nextLine();
 		
