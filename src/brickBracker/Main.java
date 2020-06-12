@@ -20,7 +20,20 @@ public class Main {
     
     public static void main(String[] args) {
 	// write your code here
-    	
+//     			Connection conn = Database.getDatabase();
+// 		try{
+// 			String query = "Select * from pvp";
+// 			Statement statement = conn.createStatement();
+// 			ResultSet resultSet = statement.executeQuery(query);
+
+// 			while(resultSet.next()){
+// 				System.out.println(resultSet.getString(1));
+// 			}
+// 		}catch(Exception e){
+// 			System.out.println("Some error appeared during connection.");
+// 		}
+	    	    
+	    
     	System.out.print("Enter your Nickname: ");
     	Scanner nn = new Scanner(System.in);
 		String name = nn.nextLine();
