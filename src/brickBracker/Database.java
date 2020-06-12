@@ -9,13 +9,13 @@ import java.sql.Statement;
 public class Database {
 
 	static Connection conn = null;
-	private DBConnection (){
+	private Database(){
 }
-	public static Connection getDBConnection(){
+	public static Connection getDatabase(){
         	try{
 			if(conn == null){
 				Class.forName("com.mysql.jdbc.Driver");
-				conn = DriverManager.getConnection("jdbc:mysql://localhost/javaproject","root","123456");
+				conn = DriverManager.getConnection("jdbc:mysql://localhost/javaproject","root","13579abc");
 			}
 		} catch(Exception e){
 			e.printStackTrace();
@@ -23,6 +23,3 @@ public class Database {
 		return conn;
 	}
 }
-
-	
-
