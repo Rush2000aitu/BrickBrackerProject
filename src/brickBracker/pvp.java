@@ -131,9 +131,7 @@ public class pvp extends JPanel implements KeyListener, ActionListener{
 	public void actionPerformed(ActionEvent actionEvent) {
 		// TODO Auto-generated method stub
         timer.start();
-        if (play == false) {
-        	play = true;
-        }
+        
         if(play){
             if(new Rectangle(ballposX,ballposY,20,20).intersects((new Rectangle(playerX,550,100,8)))) {
                 ballYdir = -ballYdir;
@@ -236,3 +234,4 @@ public class pvp extends JPanel implements KeyListener, ActionListener{
 	
 
 }
+
