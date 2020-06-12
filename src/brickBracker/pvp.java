@@ -29,6 +29,12 @@ public class pvp extends JPanel implements KeyListener, ActionListener{
     private int ballposY = random.nextInt(250,500);
     private int ballXdir = -1;
     private int ballYdir = -2;
+    
+    private static final String url = "jdbc:mysql://localhost:3306/javaproject?useSSL=false";
+    private static final String user = "root";
+    private static final String password = "13579abc";
+    private static Connection con;
+    private static Statement stmt;
 
     public pvp() {
         addKeyListener(this);
@@ -59,24 +65,9 @@ public class pvp extends JPanel implements KeyListener, ActionListener{
         g.setColor(Color.yellow);
         g.fillOval(ballposX,ballposY,20,20);
 
-//        if(totalBricks <=0){
-//        	
-//        	
-//            play = false;
-//            ballXdir = 0;
-//            ballYdir = 0;
-//            g.setColor(Color.red);
-//            g.setFont(new Font("serif",Font.BOLD,30));
-//            g.drawString("You won ",260,300);
-//
-//            g.setFont(new Font("serif",Font.BOLD,20));
-//            g.drawString("Press Enter to Restart",230,350);
-//           
-//        }
-
         if (ballposY > 570) {
         	
-            play = false;
+            play = false;            
             ballXdir = 0;
             ballYdir = 0;
             g.setColor(Color.red);
@@ -85,6 +76,21 @@ public class pvp extends JPanel implements KeyListener, ActionListener{
 
             g.setFont(new Font("serif",Font.BOLD,25));
             g.drawString("Press Enter to Restart",230,350);
+            
+        	try{  
+    			String query1 = "UPDATE pvp SET winner = 'Player2' ORDER BY id DESC LIMIT 1";
+    			
+    			con = DriverManager.getConnection(url, user, password);
+    			stmt = con.createStatement();
+    			stmt.executeUpdate(query1);
+    			if(con!=null) {
+  				  con.close();
+  				}
+    		}catch(Exception e){
+    				System.out.println(e);
+    				e.printStackTrace();
+    				return;
+    			}
 
         }
         
@@ -99,7 +105,24 @@ public class pvp extends JPanel implements KeyListener, ActionListener{
 
             g.setFont(new Font("serif",Font.BOLD,25));
             g.drawString("Press Enter to Restart",230,350);
+            
+        	try{  
+    			String query1 = "UPDATE pvp SET winner = 'Player1' ORDER BY id DESC LIMIT 1";
+    			
+    			con = DriverManager.getConnection(url, user, password);
+    			stmt = con.createStatement();
+    			stmt.executeUpdate(query1);
+    			if(con!=null) {
+  				  con.close();
+  				}
+    		}catch(Exception e){
+    				System.out.println(e);
+    				e.printStackTrace();
+    				return;
+    			}
+        	
         }
+        
         
         g.dispose();
     }	
